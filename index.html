@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Lost & Found</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <button id="backButton" class="menu-btn back-arrow hidden" type="button"
+        aria-label="Go back" title="Go back">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button id="menuButton" class="menu-btn hidden" type="button"
+        aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="logo">
+        <span class="logo-icon" aria-hidden="true">🎓</span>
+        <span class="logo-text">Campus <span>Lost & Found</span></span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="nav-text">Student Portal</div>
+      <button id="profileButton" class="avatar hidden" type="button"
+        title="My profile" aria-label="Open my profile"></button>
+      <input id="avatarFile" type="file" accept="image/*" class="hidden">
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- LOGIN PAGE -->
+    <section id="loginPage" class="panel auth-panel">
+      <h1>Welcome Back!</h1>
+      <p class="subtitle">Login to your campus account</p>
+
+      <form id="loginForm">
+        <label for="loginUserId">User ID</label>
+        <input id="loginUserId" type="text" placeholder="Enter your User ID" required>
+
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" placeholder="Enter your password" required>
+
+        <button class="btn primary" type="submit">Login</button>
+      </form>
+
+      <p class="switch-text">
+        Don't have an account?
+        <button class="text-btn" type="button" data-page="signupPage">Create Account</button>
+      </p>
+      <p class="switch-text">
+        New here?
+        <button class="text-btn" type="button" data-guide>Read the quick guide</button>
+      </p>
+    </section>
+
+    <!-- SIGNUP PAGE -->
+    <section id="signupPage" class="panel auth-panel hidden">
+      <h1>Create Account</h1>
+      <p class="subtitle">Register for the Campus Lost & Found Portal</p>
+
+      <form id="signupForm">
+        <div class="two-columns">
+          <div>
+            <label for="firstName">First Name</label>
+            <input id="firstName" type="text" placeholder="First Name" required>
+          </div>
+          <div>
+            <label for="lastName">Last Name</label>
+            <input id="lastName" type="text" placeholder="Last Name" required>
+          </div>
+        </div>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Enter Email" required>
+
+        <label for="registrationNumber">Registration Number</label>
+        <input id="registrationNumber" type="text"
+          inputmode="numeric" maxlength="8"
+          placeholder="Enter 8-digit Registration Number" required>
+
+        <label for="newUserId">User ID</label>
+        <input id="newUserId" type="text" placeholder="Create User ID" required>
+
+        <label for="newPassword">New Password</label>
+        <input id="newPassword" type="password"
+          placeholder="Click here for a password suggestion" required>
+
+        <div id="passwordSuggestion" class="suggestion hidden">
+          <strong>Suggested Strong Password</strong>
+          <code id="suggestedPassword"></code>
+          <div class="suggestion-actions">
+            <button class="btn primary" type="button" id="useSuggested">
+              Use This Password
+            </button>
+            <button class="btn secondary" type="button" id="createOwn">
+              Create My Own
+            </button>
+          </div>
+        </div>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" type="password"
+          placeholder="Confirm your password" required>
+
+        <button class="btn primary" type="submit">Create Account</button>
+      </form>
+
+      <p class="switch-text">
+        Already have an account?
+        <button class="text-btn" type="button" data-page="loginPage">Login</button>
+      </p>
+
+      <p class="switch-text">
+        Not sure how it works?
+        <button class="text-btn" type="button" data-guide>Read the quick guide</button>
+      </p>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboardPage" class="hidden">
+
+      <div class="dashboard-content">
+        <div class="panel dashboard-heading">
+          <div>
+            <p class="welcome-label">CAMPUS LOST & FOUND</p>
+            <h1 id="welcomeName">Welcome!</h1>
+            <p class="subtitle">Find what you lost. Help someone find theirs.</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Recently Reported Items</h2>
+          <div id="recentItems" class="items-grid"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- REPORT ITEM PAGE -->
+    <section id="reportPage" class="panel hidden">
+      <h1>Report an Item</h1>
+      <p class="subtitle">Tell us whether you lost or found something and add the details.</p>
+
+      <form id="reportForm">
+        <label>I want to report a</label>
+        <div class="status-toggle" role="radiogroup" aria-label="Item status">
+          <label class="status-option">
+            <input type="radio" name="itemStatus" value="Lost" checked>
+            <span>🔎 Lost Item</span>
+          </label>
+          <label class="status-option">
+            <input type="radio" name="itemStatus" value="Found">
+            <span>📦 Found Item</span>
+          </label>
+        </div>
+
+        <label for="itemName">Item Name</label>
+        <input id="itemName" type="text" placeholder="Example: Water Bottle" required>
+
+        <label for="itemLocation" id="locationLabel">Where Was It Lost?</label>
+        <input id="itemLocation" type="text" placeholder="Example: Library, Block 27" required>
+
+        <label for="itemDate" id="dateLabel">Date Lost</label>
+        <input id="itemDate" type="date" required>
+
+        <label for="itemDescription">Description</label>
+        <textarea id="itemDescription" rows="4"
+          placeholder="Describe the item: colour, brand, case, stickers, marks..." required></textarea>
+
+        <button class="btn primary" type="submit">Submit Item</button>
+      </form>
+
+      <section class="locations" aria-labelledby="locationsTitle">
+        <h2 id="locationsTitle">Location of the lost items</h2>
+        <p class="subtitle">Found something? This is where each kind of item should be submitted, and where owners can collect it.</p>
+        <input id="locationSearch" type="search" placeholder="Search an item, for example phone or umbrella...">
+        <div id="locationList" class="location-grid"></div>
+      </section>
+    </section>
+
+    <!-- SEARCH PAGE -->
+    <section id="searchPage" class="panel hidden">
+      <h1>Search Lost Items</h1>
+      <p class="subtitle">Find an item reported on campus.</p>
+
+      <input id="searchInput" type="search"
+        placeholder="Search by item name, status or location...">
+
+      <div id="searchResults" class="items-grid"></div>
+    </section>
+
+    <!-- ABOUT US PAGE -->
+    <section id="aboutPage" class="panel hidden">
+      <p class="welcome-label">ABOUT US</p>
+      <h1>About Campus Lost &amp; Found</h1>
+      <p class="subtitle">Helping students get their belongings back.</p>
+
+      <h2 class="about-heading">Our mission</h2>
+      <p class="about-text">
+        Losing a phone, a book or an ID card on campus is stressful, and finding someone else's
+        belongings can leave you wondering what to do with them. Campus Lost &amp; Found gives every
+        student one simple place to report what they lost and what they found, so belongings can
+        find their way back to their owners.
+      </p>
+
+      <h2 class="about-heading">How it works</h2>
+      <div class="about-steps">
+        <div class="about-step">
+          <span class="step-num">1</span>
+          <h3>Report</h3>
+          <p>Tell us whether you lost or found something, where and when, and describe it in a few words.</p>
+        </div>
+        <div class="about-step">
+          <span class="step-num">2</span>
+          <h3>Match</h3>
+          <p>When a found report matches a lost one, the lost report is removed automatically and the found item's details are shown.</p>
+        </div>
+        <div class="about-step">
+          <span class="step-num">3</span>
+          <h3>Reunite</h3>
+          <p>The owner recognises the item from its details and gets it back. Owners can also mark an item as found themselves.</p>
+        </div>
+      </div>
+
+      <h2 class="about-heading">What we stand for</h2>
+      <ul class="about-values">
+        <li><strong>Honesty</strong> Report only what you really lost or found.</li>
+        <li><strong>Kindness</strong> Help someone get back something that matters to them.</li>
+        <li><strong>Simplicity</strong> One account, one place to report, and one search box for the whole campus.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- SIDE DRAWER (opened by the three dots) -->
+  <div id="drawerBackdrop" class="drawer-backdrop hidden"></div>
+  <aside id="drawer" class="drawer" aria-label="Main menu" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-brand"><span aria-hidden="true">🎓</span> Campus Lost &amp; Found</div>
+      <button id="closeDrawer" class="drawer-close" type="button" aria-label="Close menu">✕</button>
+    </div>
+
+    <nav class="drawer-nav">
+      <button class="drawer-link" type="button" data-page="dashboardPage">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg> Home
+      </button>
+      <button class="drawer-link" type="button" data-page="searchPage">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg> Search
+      </button>
+      <button class="drawer-link" type="button" data-page="reportPage">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> Report Item
+      </button>
+      <button class="drawer-link" type="button" data-page="aboutPage">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/></svg> About Us
+      </button>
+      <button class="drawer-link" type="button" data-guide>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg> Help &amp; Guide
+      </button>
+    </nav>
+
+    <button id="recentToggle" class="drawer-section" type="button" aria-expanded="true">
+      Recently reported <span class="chevron" aria-hidden="true">⌄</span>
+    </button>
+    <ul id="drawerItems" class="drawer-items"></ul>
+    <button class="drawer-viewall" type="button" data-page="searchPage">View all</button>
+  </aside>
+
+  <!-- PROFILE PANEL -->
+  <div id="profileModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <div class="modal-card panel">
+      <button id="closeProfile" class="text-btn modal-close" type="button" aria-label="Close">✕</button>
+
+      <div class="profile-top">
+        <div id="profileBigAvatar" class="avatar big"></div>
+        <div>
+          <h2 id="profileTitle"></h2>
+          <p id="profileHandle" class="subtitle"></p>
+        </div>
+      </div>
+
+      <dl class="profile-details">
+        <dt>Full Name</dt><dd id="pdName"></dd>
+        <dt>Email</dt><dd id="pdEmail"></dd>
+        <dt>Registration No.</dt><dd id="pdReg"></dd>
+        <dt>User ID</dt><dd id="pdUserId"></dd>
+        <dt>Items Reported</dt><dd id="pdItems"></dd>
+      </dl>
+
+      <h3 class="modal-heading">Choose a character</h3>
+      <div id="characterGrid" class="character-grid"></div>
+
+      <p class="mini-label">Background colour</p>
+      <div id="colorRow" class="color-row"></div>
+
+      <div class="profile-actions">
+        <button id="uploadPhotoBtn" class="btn secondary" type="button">📷 Upload Photo</button>
+        <button id="resetAvatarBtn" class="btn secondary" type="button">Use Initials</button>
+      </div>
+
+      <button id="logoutButton" class="btn logout-btn" type="button">Logout</button>
+    </div>
+  </div>
+
+  <!-- FIRST-TIME VISITOR GUIDE -->
+  <div id="guideModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <div class="modal-card panel guide-card">
+      <button id="closeGuide" class="text-btn modal-close" type="button" aria-label="Close">✕</button>
+      <p class="welcome-label">FIRST TIME HERE?</p>
+      <h2 id="guideTitle">Welcome to Campus Lost &amp; Found</h2>
+      <p class="subtitle">Quick answers to the questions new visitors ask most.</p>
+
+      <div class="faq">
+        <details open>
+          <summary>What is Campus Lost &amp; Found?</summary>
+          <p>A place for students to report things they lost on campus and things they found, so owners and finders can connect with each other.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?</summary>
+          <p>Yes. Choose <strong>Create Account</strong> and enter your name, email, 8-digit registration number and a User ID. Click the password box and we will suggest a strong password. Then log in with your User ID and password.</p>
+        </details>
+        <details>
+          <summary>I lost something. What should I do?</summary>
+          <p>First search for it, because someone may already have found it. If it is not there, tap the <strong>three dots</strong> at the top left, choose <strong>Report Item</strong>, select <strong>Lost Item</strong> and add the name, where you lost it, the date and a short description.</p>
+        </details>
+        <details>
+          <summary>I found something. What should I do?</summary>
+          <p>Open the menu, choose <strong>Report Item</strong> and select <strong>Found Item</strong>. Say where you found it and describe it. The form then tells you <strong>where to submit the item</strong>, and you should hand it over there. Tip: keep one identifying detail to yourself, so you can check that the person claiming it is the real owner.</p>
+        </details>
+        <details>
+          <summary>How do I search for an item?</summary>
+          <p>Open the menu and choose <strong>Search</strong>. Type an item name, a place, or the word Lost or Found. Tap any card to see all of its details.</p>
+        </details>
+        <details>
+          <summary>What happens when my lost item is found?</summary>
+          <p>When someone reports a matching found item, your lost report is removed automatically and the found item's details are shown. If you get the item back yourself, open your lost report and tap <strong>Mark as found</strong>.</p>
+        </details>
+        <details>
+          <summary>How do I write a good report?</summary>
+          <p>Use a clear name such as "Black Samsung Galaxy phone", give the exact place and the correct date, and mention colour, brand, case or stickers. The more precise you are, the faster it gets matched.</p>
+        </details>
+        <details>
+          <summary>How do I change my profile picture or log out?</summary>
+          <p>Tap your round picture at the top right. You can see your details, pick a cartoon character, upload a photo, or log out.</p>
+        </details>
+      </div>
+
+      <button id="guideDone" class="btn primary" type="button">Got it, let's start</button>
+    </div>
+  </div>
+
+  <!-- ITEM DETAILS -->
+  <div id="itemModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="itemModalTitle">
+    <div class="modal-card item-modal-card">
+      <button id="closeItem" class="item-close" type="button" aria-label="Close">✕</button>
+      <div id="itemModalMedia" class="card-media"></div>
+      <div class="card-body">
+        <div class="card-title-row">
+          <h3 id="itemModalTitle"></h3>
+          <span id="itemModalBadge" class="badge"></span>
+        </div>
+        <p id="itemModalDesc" class="card-desc"></p>
+        <dl id="itemModalDetails" class="item-details"></dl>
+        <div class="modal-actions">
+          <button id="itemModalCopy" class="copy-btn" type="button">📋 Copy details</button>
+          <button id="itemModalResolve" class="resolve-btn hidden" type="button">✓ Mark as found</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Campus Lost & Found © 2026</p>
+    <p class="footer-links"><button class="text-btn" type="button" data-page="aboutPage">About Us</button></p>
+  </footer>
+
+</body>
+</html>
